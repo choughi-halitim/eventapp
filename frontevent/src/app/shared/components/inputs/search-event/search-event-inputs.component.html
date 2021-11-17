@@ -1,0 +1,41 @@
+<form fxLayout="column" [formGroup]="eventSearchFormGroup">
+
+  <div fxLayout="row" style="margin: 16px">
+
+    <mat-form-field class="my-custom-form-field-first" fxFlex="50" appearance="outline">
+
+      <mat-label>{{ 'inputs.search-event.main' | translate }}</mat-label>
+
+      <input type="text" matInput [formControl]="eventSearchCtrl"
+
+             [placeholder]="'inputs.search-event.main' | translate">
+
+      <button matPrefix type="button" mat-icon-button>
+
+        <mat-icon >search</mat-icon>
+
+      </button>
+
+    </mat-form-field>
+
+    <mat-form-field class="my-custom-form-field-last" fxFlex="50" appearance="outline">
+
+      <mat-label>{{ 'inputs.search-event.start' | translate }} - {{ 'inputs.search-event.end' | translate }}</mat-label>
+
+      <mat-date-range-input [formGroup]="eventSearchFormGroup" [rangePicker]="picker">
+
+        <input matStartDate formControlName="start" (focus)="picker.open()" [placeholder]="'inputs.search-event.start' | translate">
+
+        <input matEndDate formControlName="end"  (focus)="picker.open()" [placeholder]="'inputs.search-event.end' | translate">
+
+      </mat-date-range-input>
+
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+
+      <mat-date-range-picker #picker></mat-date-range-picker>
+
+    </mat-form-field>
+
+  </div>
+
+</form>

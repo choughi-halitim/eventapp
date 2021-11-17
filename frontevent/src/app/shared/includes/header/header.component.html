@@ -1,0 +1,28 @@
+<header>
+
+    <mat-toolbar fxLayoutGap="8px">
+
+      <h1 class="animate__animated animate__backInLeft">{{ title }}</h1>
+
+      <app-spacer></app-spacer>
+
+      <span> {{ 'header.current-timezone' | translate }} {{currentTimeZone}} - {{ getUtc() }}</span>
+
+      <app-spacer></app-spacer>
+
+
+      <app-select-timezone fxFlex="20" [timeZone]="currentTimeZone" [timeZoneCtrl]="timeZoneCtrl"></app-select-timezone>
+
+      <button mat-raised-button [disabled]="timeZoneCtrl.invalid" (click)="timeZoneChange()"
+
+              class="round-button" color="primary">{{ 'buttons.timeZone-change' |  translate }}</button>
+
+      <app-spacer></app-spacer>
+
+      <button mat-raised-button (click)="addEvent()" class="round-button"
+
+              color="primary">{{ 'buttons.add-event' |  translate }}</button>
+
+    </mat-toolbar>
+
+</header>

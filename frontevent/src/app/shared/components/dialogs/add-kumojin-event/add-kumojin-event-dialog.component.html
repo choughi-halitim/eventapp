@@ -1,0 +1,215 @@
+<form [formGroup]="kumojinEventFormGroup" (ngSubmit)="postKumojinEvent()">
+
+  <div mat-dialog-title fxLayoutAlign="spacer-between center" class="mat-primary">
+
+    <h1>{{ 'dialogs.add-event.title' |  translate }}</h1>
+
+    <app-spacer></app-spacer>
+
+
+    <button mat-dialog-close="false" mat-icon-button>
+
+      <mat-icon>close</mat-icon>
+
+    </button>
+
+  </div>
+
+  <div mat-dialog-content fxLayout="column">
+
+    <mat-stepper orientation="vertical" linear="true" #addKumojinEventStepper>
+
+      <mat-step [stepControl]="whatFormGroup">
+
+        <form [formGroup]="whatFormGroup">
+
+          <ng-template matStepLabel>{{ 'dialogs.add-event.steps.what' | translate }}</ng-template>
+
+          <div fxLayout="column" style="margin-top: 16px">
+
+            <mat-form-field appearance="outline">
+
+              <mat-label>{{ 'dialogs.add-event.form.name.label' | translate }}</mat-label>
+
+              <input matInput #nameInput maxlength="32" type="text" formControlName="name">
+
+              <mat-hint align="end">{{nameInput.value?.length || 0}}/32</mat-hint>
+
+              <mat-error *ngIf="nameCtrl.invalid"> {{ errorMessage(nameCtrl) | translate }}</mat-error>
+
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline">
+
+              <mat-label>{{ 'dialogs.add-event.form.description.label' | translate }}</mat-label>
+
+              <textarea matInput #descriptionInput formControlName="description" rows="10"></textarea>
+
+              <mat-hint align="end">{{descriptionInput.value?.length || 0}}/1000</mat-hint>
+
+              <mat-error *ngIf="descriptionCtrl.invalid"> {{ errorMessage(descriptionCtrl) | translate }}</mat-error>
+
+            </mat-form-field>
+
+          </div>
+
+          <div fxLayout="row wrap">
+
+            <app-spacer></app-spacer>
+
+            <button fxFlex="50" class="round-button" color="primary" mat-raised-button matStepperNext type="button">
+
+              {{ 'buttons.next' | translate }}
+
+            </button>
+
+          </div>
+
+        </form>
+
+      </mat-step>
+
+      <mat-step [stepControl]="whenFormGroup">
+
+        <form [formGroup]="whenFormGroup">
+
+          <ng-template matStepLabel>{{ 'dialogs.add-event.steps.when' | translate }}</ng-template>
+
+          <div fxLayout="column" style="margin-top: 16px">
+
+            <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="space-around center">
+
+              <mat-form-field appearance="outline" fxFlex="calc(50% - 8px)">
+
+                <mat-label>{{ 'dialogs.add-event.form.start.label' | translate }}</mat-label>
+
+                <input matInput [matDatepicker]="startPicker" [placeholder]="'dialogs.add-event.form.start.placeholder' | translate"
+
+                       formControlName="startDate">
+
+                <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+
+                <mat-datepicker #startPicker></mat-datepicker>
+
+                <mat-error *ngIf="startDateCtrl.invalid">{{ errorMessage(startDateCtrl) | translate }}</mat-error>
+
+              </mat-form-field>
+
+              <ngx-mat-timepicker fxFlex="auto" formControlName="startDate"></ngx-mat-timepicker>
+
+            </div>
+
+          </div>
+
+          <div fxLayout="column" style="margin-top: 16px">
+
+            <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="space-around center">
+
+              <mat-form-field appearance="outline" fxFlex="calc(50% - 8px)">
+
+                <mat-label>{{ 'dialogs.add-event.form.end.label' | translate }}</mat-label>
+
+                <input matInput [matDatepicker]="endPicker" [placeholder]="'dialogs.add-event.form.end.placeholder' | translate"
+
+                       formControlName="endDate">
+
+                <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+
+                <mat-datepicker #endPicker></mat-datepicker>
+
+                <mat-error *ngIf="endDateCtrl.invalid">{{ errorMessage(endDateCtrl) | translate }}</mat-error>
+
+              </mat-form-field>
+
+              <ngx-mat-timepicker fxFlex="auto" formControlName="endDate"></ngx-mat-timepicker>
+
+            </div>
+
+          </div>
+
+          <div fxLayout="row wrap" fxLayoutGap="8px">
+
+            <button fxFlex="calc(50% - 8px)" class="round-button" mat-raised-button matStepperPrevious>{{ 'buttons.previous' | translate }}</button>
+
+            <button fxFlex="calc(50% - 8px)" class="round-button" color="primary" mat-raised-button matStepperNext>{{ 'buttons.next' | translate }}</button>
+
+          </div>
+
+        </form>
+
+      </mat-step>
+
+      <mat-step>
+
+        <ng-template matStepLabel>{{ 'dialogs.add-event.validate' | translate}}</ng-template>
+
+        <p>{{ 'dialogs.add-event.done' | translate}}</p>
+
+        <div mat-dialog-actions fxLayout="row" fxLayoutGap="8px">
+
+          <button fxFlex="auto" matStepperPrevious
+
+                  class="round-button" mat-stroked-button>{{ 'buttons.previous' | translate }}</button>
+
+          <button fxFlex="auto" class="round-button" (click)="addKumojinEventStepper.reset()"
+
+                  mat-stroked-button>{{ 'buttons.reset' | translate }}</button>
+
+          <button fxFlex="auto" type="reset" mat-dialog-close="false"
+
+                  class="round-button" mat-stroked-button>{{ 'buttons.cancel' | translate }}</button>
+
+          <button fxFlex="auto" type="submit" mat-raised-button autofocus [disabled]="kumojinEventFormGroup.invalid"
+
+                  class="round-button" color="primary">{{ 'buttons.create-event' | translate }}</button>
+
+        </div>
+
+      </mat-step>
+
+    </mat-stepper>
+
+
+
+
+
+    <!--<mat-form-field appearance="outline">
+
+      <mat-label>{{ 'dialogs.add-event.form.start.label' | translate }} - {{ 'dialogs.add-event.form.end.label' | translate }}</mat-label>
+
+      <mat-date-range-input [formGroup]="kumojinEventFormGroup" [rangePicker]="picker">
+
+        <input matStartDate formControlName="start" (focus)="picker.open()" [placeholder]="'dialogs.add-event.form.start.placeholder' | translate">
+
+        <input matEndDate formControlName="end"  (focus)="picker.open()" [placeholder]="'dialogs.add-event.form.end.placeholder' | translate">
+
+      </mat-date-range-input>
+
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+
+      <mat-date-range-picker #picker></mat-date-range-picker>
+
+      <mat-error *ngIf="startCtrl.invalid">
+
+        {{ 'dialogs.add-event.form.start.label' | translate }}: {{ errorMessage(startCtrl) | translate }}
+
+      </mat-error>
+
+      <mat-error *ngIf="endCtrl.invalid">
+
+        {{ 'dialogs.add-event.form.end.label' | translate }}: {{ errorMessage(endCtrl) | translate }}
+
+      </mat-error>
+
+    </mat-form-field>-->
+
+
+
+
+
+  </div>
+
+
+
+</form>

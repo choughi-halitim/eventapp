@@ -1,0 +1,67 @@
+{
+  "header": {
+    "current-timezone": "Fuseau horaire actuel:"
+  },
+  "footer": {
+    "copyright": "Copyright"
+  },
+  "buttons": {
+    "add-event": "Ajouter un événement",
+    "create-event": "Créer l'événement",
+    "cancel": "Annuler",
+    "timeZone-change": "Changer de fuseau horaire",
+    "reset": "Réinitialiser",
+    "next": "Suivant",
+    "previous": "Précédent"
+  },
+  "dialogs": {
+    "add-event": {
+      "title": "Créer un nouvel événement",
+      "validate": "Valider l'événement",
+      "done": "Avez-vous términé ?",
+      "steps": {
+        "what": "Information de l'événement",
+        "when": "Quand ? Combien de jour(s) ?",
+        "how": "Comment ?",
+        "howDetail": "Horaire de l'événement"
+
+      },
+      "form": {
+        "name": {
+          "label": "Nom",
+          "placeholder": "Description"
+        },
+        "description": {
+          "label": "Description",
+          "placeholder": "Description"
+        },
+        "start": {
+          "label": "Date de début",
+          "placeholder": "Ex: 22/10/2020"
+        },
+        "end": {
+          "label": "Date de fin",
+          "placeholder": "Ex: 22/10/2020"
+        }
+      }
+    }
+  },
+  "inputs": {
+    "select-timezone": {
+      "label": "Changer de fuseau horaire",
+      "placeholder": "Séléctionner un fuseau horaire"
+    },
+    "search-event": {
+      "main": "Rechercher un événement",
+      "start": "Après le:",
+      "end": "Avant le:"
+    }
+  },
+  "messages": {
+    "errors": {
+      "required": "Ce champ est requis",
+      "notOptionValid": "La fuseau horaire saisi n'existe pas",
+      "maxLenght": ""
+    }
+  }
+}

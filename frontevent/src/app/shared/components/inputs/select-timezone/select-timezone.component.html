@@ -1,0 +1,22 @@
+<mat-form-field fxFlex="auto" class="my-custom-form-field" appearance="outline" floatLabel="never">
+
+  <input type="text"
+         [placeholder]="'inputs.select-timezone.label' | translate"
+         aria-label="Number"
+         matInput
+         [formControl]="timeZoneCtrl"
+         [matAutocomplete]="timeZoneAutoComplete">
+
+  <mat-autocomplete autoActiveFirstOption #timeZoneAutoComplete="matAutocomplete">
+
+    <mat-option *ngFor="let timeZone of filteredTimeZonesOptions | async" [value]="timeZone">{{ timeZone }}</mat-option>
+
+  </mat-autocomplete>
+
+
+  <mat-icon matSuffix (click)="timeZoneCtrl.patchValue(''); timeZoneCtrl.markAsPristine();" [matTooltip]="'buttons.cancel' | translate"
+
+            *ngIf="!timeZoneCtrl.pristine">close</mat-icon>
+
+
+</mat-form-field>

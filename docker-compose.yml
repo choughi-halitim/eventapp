@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+
+  backevent:
+    container_name: backevent
+    build: ./backevent
+    ports:
+      - "1337:1337"
+      - "5432:5432"
+    volumes:
+      - "./backevent:/usr/src/app"
+    command: sh -c "npm install --prune && npm start"
+
+  frontevent:
+    container_name: frontevent
+    build: ./frontevent
+    ports:
+      - "4200:4200"
+    volumes:
+      - "./frontevent:/usr/src/app"
+    command: sh -c "npm install --prune && npm start"

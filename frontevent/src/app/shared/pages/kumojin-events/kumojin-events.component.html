@@ -1,0 +1,49 @@
+<div fxFlexFill fxLayout="column">
+
+  <div fxLayout="row" fxLayoutAlign="center center">
+
+    <app-search-event-inputs fxFlex="50"></app-search-event-inputs>
+
+  </div>
+
+  <div fxFlex="auto">
+
+      <div  style="margin: 16px"  *ngFor="let kumojinEvent of kumojinEvents">
+
+        <mat-card>
+
+          <mat-card-header>
+
+            <mat-card-title>{{ kumojinEvent.name }}</mat-card-title>
+
+          </mat-card-header>
+
+          <mat-card-content [innerHTML]="kumojinEvent.description" style="margin: 16px; overflow: hidden; word-break: break-word;"></mat-card-content>
+
+          <mat-card-footer fxLayout="row" fxLayoutAlign="space-between center" style="margin: 16px">
+
+            <span>
+
+              <span>Commence le:</span>
+
+              <app-display-date-timezone-format [date]="kumojinEvent.start"></app-display-date-timezone-format>
+
+            </span>
+
+            <span>
+
+              <span>Termine le:</span>
+
+              <app-display-date-timezone-format [date]="kumojinEvent.end"></app-display-date-timezone-format>
+
+            </span>
+
+          </mat-card-footer>
+
+        </mat-card>
+
+      </div>
+
+    </div>
+
+</div>
