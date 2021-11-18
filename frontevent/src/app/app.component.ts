@@ -11,7 +11,6 @@ import * as moment  from 'moment';
 
   styleUrls: ['./app.component.sass'],
 
-  providers: [ ]
 })
 export class AppComponent implements OnInit {
 
@@ -25,8 +24,7 @@ export class AppComponent implements OnInit {
 
     moment.updateLocale('fr', {});
 
-    // Récuperer le timezone au chargement de l'application - prévoir le localstorage / session storage
-    this._timeZoneService.setTimeZoneBehaviorSubject(momentTZ.tz.guess(true));
+    this._timeZoneService.setTimeZoneBehaviorSubject(momentTZ.tz.guess());
 
   }
 

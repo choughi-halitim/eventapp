@@ -4,7 +4,10 @@ import { KumojinEventInterface } from '@core/interfaces/kumojin-event.interface'
 import { KumojinEventService } from '@core/services/kumojin-event.service';
 import { HttpResponseGetAllInterface } from '@core/interfaces/http-response-get-all.interface';
 import { TimeZoneService } from '@core/services/time-zone.service';
-import {Subscription} from 'rxjs';
+import {of, Subscription, switchMap, tap} from 'rxjs';
+import {FormControl} from '@angular/forms';
+import {map, startWith} from 'rxjs/operators';
+import {HttpParams} from '@angular/common/http';
 
 @Component({
 
@@ -14,6 +17,8 @@ import {Subscription} from 'rxjs';
 
 })
 export class KumojinEventsComponent implements OnInit, OnDestroy {
+
+  eventSearchCtrl: FormControl = new FormControl();
 
   kumojinEvents: KumojinEventInterface[] = [];
 
@@ -51,6 +56,19 @@ export class KumojinEventsComponent implements OnInit, OnDestroy {
         this.kumojinEvents = rows ?? [];
 
       });
+
+    });
+
+    // Possibilité d'ameliorer l'implementation mais suffusant pour l'exemple
+    this.eventSearchCtrl.valueChanges.subscribe( query => {
+
+      this._kumojinEventService.getAll( new HttpParams().set('queryFilter', query)).subscribe(((response) => {
+
+        const { rows } = response;
+
+        this.kumojinEvents = rows ?? [];
+
+      }));
 
     });
 

@@ -8,12 +8,6 @@ export class ApplicationConfigService {
   constructor(@Inject(APP_CONFIG) private _appConfig: AppConfigInterface) {
   }
 
-  buildRelativePath(queryParams: string[]): string {
-
-    return '';
-
-  }
-
   buildAbsolutePath(queryParams: ApiPathEnum | string[]): string {
 
     return [this._appConfig.apiBaseAbsoluteUrl, ...queryParams].join('/');

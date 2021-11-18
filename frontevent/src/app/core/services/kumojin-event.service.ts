@@ -12,10 +12,9 @@ export class KumojinEventService extends CrudAbstractService<KumojinEventInterfa
 
 
 
-  constructor(
-    @Inject(APP_CONFIG) private _appConfig: AppConfigInterface,
+  constructor(@Inject(APP_CONFIG) private _appConfig: AppConfigInterface,
 
-    private _applicationConfigService: ApplicationConfigService, http: HttpClient) {
+              private _applicationConfigService: ApplicationConfigService, http: HttpClient) {
 
     super(_applicationConfigService.buildAbsolutePath([_appConfig[ApiPathEnum.API_PATH_EVENTS]]), http);
 

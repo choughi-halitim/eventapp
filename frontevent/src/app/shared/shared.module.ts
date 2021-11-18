@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FrontEventLayoutComponent } from './layout/front-event/front-event-layout.component';
-import { NavigationMainComponent } from '@shared/includes/navigation-main/navigation-main.component';
 import { HeaderComponent } from '@shared/includes/header/header.component';
 import { FooterComponent } from '@shared/includes/footer/footer.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -22,7 +21,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { SelectTimezoneComponent } from '@shared/components/inputs/select-timezone/select-timezone.component';
-import { SearchEventInputsComponent } from '@shared/components/inputs/search-event/search-event-inputs.component';
 import { AddKumojinEventDialogComponent } from '@shared/components/dialogs/add-kumojin-event/add-kumojin-event-dialog.component';
 import { KumojinEventsComponent } from '@shared/pages/kumojin-events/kumojin-events.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -46,7 +44,7 @@ const MATERIAL_MODULES = [
 const COMPONENTS = [
 
   // LAYOUT AND COMPONENTS INCLUDES
-  FrontEventLayoutComponent, HeaderComponent, FooterComponent, NavigationMainComponent,
+  FrontEventLayoutComponent, HeaderComponent, FooterComponent,
 
   // CUSTOM COMPONENTS
   SpacerComponent,
@@ -55,7 +53,7 @@ const COMPONENTS = [
   AddKumojinEventDialogComponent,
 
   // INPUTS
-  SelectTimezoneComponent, SearchEventInputsComponent,
+  SelectTimezoneComponent,
 
   // PAGES
   KumojinEventsComponent,
@@ -70,7 +68,7 @@ const PROVIDERS = [
 
   { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' },
 
-  { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } }
+  { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
 
 ];
 

@@ -36,7 +36,8 @@
               "src/styles.sass"
             ],
             "scripts": [
-              "./node_modules/moment/min/moment-with-locales.min.js"
+              "./node_modules/moment/min/moment-with-locales.min.js",
+              "./node_modules/moment-timezone/builds/moment-timezone.min.js"
             ],
             "allowedCommonJsDependencies": [
               "moment",

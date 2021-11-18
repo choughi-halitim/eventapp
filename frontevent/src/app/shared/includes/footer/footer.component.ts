@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
 
@@ -9,11 +9,10 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: [ 'footer.component.sass' ],
 
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent {
 
   currentYear = new Date().getFullYear();
 
   constructor() { }
 
-  ngOnInit(): void { }
 }

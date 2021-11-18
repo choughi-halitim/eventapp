@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
 
@@ -9,13 +9,11 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: [ 'front-event-layout.component.sass' ],
 
 })
-export class FrontEventLayoutComponent implements OnInit {
+export class FrontEventLayoutComponent {
 
   @Input() title!: string;
 
   constructor() {
   }
 
-  ngOnInit(): void {
-  }
 }

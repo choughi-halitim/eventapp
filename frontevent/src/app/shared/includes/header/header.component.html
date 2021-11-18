@@ -11,11 +11,7 @@
       <app-spacer></app-spacer>
 
 
-      <app-select-timezone fxFlex="20" [timeZone]="currentTimeZone" [timeZoneCtrl]="timeZoneCtrl"></app-select-timezone>
-
-      <button mat-raised-button [disabled]="timeZoneCtrl.invalid" (click)="timeZoneChange()"
-
-              class="round-button" color="primary">{{ 'buttons.timeZone-change' |  translate }}</button>
+      <app-select-timezone fxFlex="30"></app-select-timezone>
 
       <app-spacer></app-spacer>
 
