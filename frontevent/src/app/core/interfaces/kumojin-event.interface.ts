@@ -4,8 +4,8 @@ export interface KumojinEventInterface {
 
   description: string;
 
-  start: Date;
+  start: string;
 
-  end: Date;
+  end: string;
 
 }

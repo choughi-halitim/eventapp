@@ -86,17 +86,17 @@
 
                 <input matInput [matDatepicker]="startPicker" [placeholder]="'dialogs.add-event.form.start.placeholder' | translate"
 
-                       formControlName="startDate">
+                       formControlName="start">
 
                 <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
 
                 <mat-datepicker #startPicker></mat-datepicker>
 
-                <mat-error *ngIf="startDateCtrl.invalid">{{ errorMessage(startDateCtrl) | translate }}</mat-error>
+                <mat-error *ngIf="startCtrl.invalid">{{ errorMessage(startCtrl) | translate }}</mat-error>
 
               </mat-form-field>
 
-              <ngx-mat-timepicker fxFlex="auto" formControlName="startDate"></ngx-mat-timepicker>
+              <ngx-mat-timepicker fxFlex="auto" formControlName="startTime"></ngx-mat-timepicker>
 
             </div>
 
@@ -112,17 +112,17 @@
 
                 <input matInput [matDatepicker]="endPicker" [placeholder]="'dialogs.add-event.form.end.placeholder' | translate"
 
-                       formControlName="endDate">
+                       formControlName="end">
 
                 <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
 
                 <mat-datepicker #endPicker></mat-datepicker>
 
-                <mat-error *ngIf="endDateCtrl.invalid">{{ errorMessage(endDateCtrl) | translate }}</mat-error>
+                <mat-error *ngIf="endCtrl.invalid">{{ errorMessage(endCtrl) | translate }}</mat-error>
 
               </mat-form-field>
 
-              <ngx-mat-timepicker fxFlex="auto" formControlName="endDate"></ngx-mat-timepicker>
+              <ngx-mat-timepicker fxFlex="auto" formControlName="endTime"></ngx-mat-timepicker>
 
             </div>
 
@@ -144,7 +144,13 @@
 
         <ng-template matStepLabel>{{ 'dialogs.add-event.validate' | translate}}</ng-template>
 
-        <p>{{ 'dialogs.add-event.done' | translate}}</p>
+        <p> {{ 'dialogs.add-event.done' | translate}}</p>
+
+        <p>{{ 'header.current-timezone' | translate }} {{currentTimeZone}} - {{ getUtc() }}</p>
+
+        <p>Début: {{ getDateOnTimeZone(changeOnFormTimeZoneDates().start) }}</p>
+
+        <p>Fin: {{ getDateOnTimeZone(changeOnFormTimeZoneDates().end) }}</p>
 
         <div mat-dialog-actions fxLayout="row" fxLayoutGap="8px">
 
@@ -170,46 +176,6 @@
 
     </mat-stepper>
 
-
-
-
-
-    <!--<mat-form-field appearance="outline">
-
-      <mat-label>{{ 'dialogs.add-event.form.start.label' | translate }} - {{ 'dialogs.add-event.form.end.label' | translate }}</mat-label>
-
-      <mat-date-range-input [formGroup]="kumojinEventFormGroup" [rangePicker]="picker">
-
-        <input matStartDate formControlName="start" (focus)="picker.open()" [placeholder]="'dialogs.add-event.form.start.placeholder' | translate">
-
-        <input matEndDate formControlName="end"  (focus)="picker.open()" [placeholder]="'dialogs.add-event.form.end.placeholder' | translate">
-
-      </mat-date-range-input>
-
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-
-      <mat-date-range-picker #picker></mat-date-range-picker>
-
-      <mat-error *ngIf="startCtrl.invalid">
-
-        {{ 'dialogs.add-event.form.start.label' | translate }}: {{ errorMessage(startCtrl) | translate }}
-
-      </mat-error>
-
-      <mat-error *ngIf="endCtrl.invalid">
-
-        {{ 'dialogs.add-event.form.end.label' | translate }}: {{ errorMessage(endCtrl) | translate }}
-
-      </mat-error>
-
-    </mat-form-field>-->
-
-
-
-
-
   </div>
-
-
 
 </form>

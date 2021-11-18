@@ -12,9 +12,9 @@ module.exports = {
 
     description:  { type: 'string', maxLength: 1000, required: true},
 
-    startDate:    { type: 'string', required: true},
+    start:    { type: 'string', required: true},
 
-    endDate:    { type: 'string', required: true},
+    end:    { type: 'string', required: true},
 
   },
 
@@ -26,7 +26,7 @@ module.exports = {
 
   },
 
-  fn: async function ({name, description, startDate, endDate}, exits) {
+  fn: async function ({name, description, start, end}, exits) {
 
     try {
 
@@ -36,9 +36,9 @@ module.exports = {
 
         description: description.trim(),
 
-        start: startDate,
+        start: start,
 
-        end:  endDate,
+        end:  end,
 
       });
 

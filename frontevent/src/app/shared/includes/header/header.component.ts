@@ -1,12 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
-import {catchError, finalize, of} from 'rxjs';
+import { Component, Input } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { catchError, finalize, of } from 'rxjs';
 import * as moment  from 'moment';
-import { FormControl } from '@angular/forms';
-import { IsInListOptionsValidator } from '@core/validators/is-in-list-options.validator';
-import {TimeZoneService} from '@core/services/time-zone.service';
+import { TimeZoneService } from '@core/services/time-zone.service';
 import { AddKumojinEventDialogComponent } from '@shared/components/dialogs/add-kumojin-event/add-kumojin-event-dialog.component';
-
 
 @Component({
 
@@ -17,38 +14,29 @@ import { AddKumojinEventDialogComponent } from '@shared/components/dialogs/add-k
   styleUrls: [ 'header.component.sass' ],
 
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
   @Input() title!: string;
 
-  currentTimeZone!: string;
-
-  timeZoneCtrl = new FormControl( null, IsInListOptionsValidator(moment.tz.names()));
+  currentTimeZone: string = '';
 
   constructor(
 
-    private timeZoneService: TimeZoneService,
+    private _timeZoneService: TimeZoneService,
 
-    private dialog: MatDialog ) { }
+    private _dialog: MatDialog ) {
 
-  ngOnInit() {
-
-    this.timeZoneCtrl.patchValue(this.currentTimeZone, { emitEvent: false });
-
-    this.timeZoneService.getTimeZoneBehaviorSubject().subscribe((timeZone) => {
+    this._timeZoneService.getTimeZoneBehaviorSubject().subscribe((timeZone) => {
 
       this.currentTimeZone = timeZone;
 
-      this.timeZoneCtrl.patchValue('');
-
-      this.timeZoneCtrl.markAsPristine();
-
     });
+
   }
 
   addEvent() {
 
-    let dialogSub = this.dialog.open(AddKumojinEventDialogComponent, {
+    let dialogSub = this._dialog.open(AddKumojinEventDialogComponent, {
 
       minWidth: '40%', minHeight: '60%', autoFocus: false, restoreFocus: false
 
@@ -66,15 +54,6 @@ export class HeaderComponent implements OnInit {
 
     });
 
-  }
-
-  timeZoneChange() {
-
-    if (this.timeZoneCtrl.valid) {
-
-      this.timeZoneService.setTimeZoneBehaviorSubject(this.timeZoneCtrl.value);
-
-    }
   }
 
   getUtc(): string {
