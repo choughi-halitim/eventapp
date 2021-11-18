@@ -1,8 +1,22 @@
 <div fxFlexFill fxLayout="column">
 
-  <div fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex="none" fxLayout="row" fxLayoutAlign="center center" style="margin: 16px">
 
-    <app-search-event-inputs fxFlex="50"></app-search-event-inputs>
+      <mat-form-field fxFlex="50" class="custom-form-field" appearance="outline">
+
+        <mat-label>{{ 'inputs.search-event.main' | translate }}</mat-label>
+
+        <input type="text" matInput [formControl]="eventSearchCtrl"
+
+               [placeholder]="'inputs.search-event.main' | translate">
+
+        <button matPrefix type="button" mat-icon-button>
+
+          <mat-icon >search</mat-icon>
+
+        </button>
+
+      </mat-form-field>
 
   </div>
 

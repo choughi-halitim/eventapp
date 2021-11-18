@@ -35,7 +35,14 @@
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.sass"
             ],
-            "scripts": [ ]
+            "scripts": [
+              "./node_modules/moment/min/moment-with-locales.min.js",
+              "./node_modules/moment-timezone/builds/moment-timezone.min.js"
+            ],
+            "allowedCommonJsDependencies": [
+              "moment",
+              "moment-timezone"
+            ]
           },
           "configurations": {
             "production": {

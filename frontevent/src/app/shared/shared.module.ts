@@ -21,7 +21,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { SelectTimezoneComponent } from '@shared/components/inputs/select-timezone/select-timezone.component';
-import { SearchEventInputsComponent } from '@shared/components/inputs/search-event/search-event-inputs.component';
 import { AddKumojinEventDialogComponent } from '@shared/components/dialogs/add-kumojin-event/add-kumojin-event-dialog.component';
 import { KumojinEventsComponent } from '@shared/pages/kumojin-events/kumojin-events.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -54,7 +53,7 @@ const COMPONENTS = [
   AddKumojinEventDialogComponent,
 
   // INPUTS
-  SelectTimezoneComponent, SearchEventInputsComponent,
+  SelectTimezoneComponent,
 
   // PAGES
   KumojinEventsComponent,

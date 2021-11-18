@@ -11,19 +11,20 @@ import * as moment  from 'moment';
 
   styleUrls: ['./app.component.sass'],
 
-  providers: [ ]
 })
 export class AppComponent implements OnInit {
 
   title = 'Kumojin Event';
 
   constructor(private _timeZoneService: TimeZoneService) {
-    moment.updateLocale('fr', {});
-    _timeZoneService.setTimeZoneBehaviorSubject(momentTZ.tz.guess(true));
+
   }
 
   ngOnInit(): void {
 
+    moment.updateLocale('fr', {});
+
+    this._timeZoneService.setTimeZoneBehaviorSubject(momentTZ.tz.guess());
 
   }
 
