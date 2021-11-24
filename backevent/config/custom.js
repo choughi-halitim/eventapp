@@ -23,6 +23,6 @@ module.exports.custom = {
 
   baseUrl: '0.0.0.0',
 
-  environment: process.env.NODE_ENV ?? 'development'
+  environment: process.env.NODE_ENV || 'development'
 
 };
