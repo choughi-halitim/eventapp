@@ -2,18 +2,8 @@ name: Test workflow
 on: push
 jobs:
   test:
-    name: Run tests
-
     runs-on: ubuntu-latest
-    container:
-      image: node:erbium
     steps:
-      - name: Checkout branch to VM
-        uses: actions/checkout@v1
-      - name: Run test
-        run: |
-          cd backevent
-          npm install -g sails
-          npm install cache clean --force
-          npm install --prune
-          npm run test
+      - uses: actions/checkout@v2
+      - name: Build the stack
+        run: docker-compose up -d
