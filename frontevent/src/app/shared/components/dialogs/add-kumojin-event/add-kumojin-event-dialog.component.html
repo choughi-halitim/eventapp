@@ -31,7 +31,7 @@
 
               <mat-label>{{ 'dialogs.add-event.form.name.label' | translate }}</mat-label>
 
-              <input matInput #nameInput maxlength="32" type="text" formControlName="name">
+              <input matInput #nameInput maxlength="33" type="text" formControlName="name">
 
               <mat-hint align="end">{{nameInput.value?.length || 0}}/32</mat-hint>
 
@@ -77,6 +77,14 @@
           <ng-template matStepLabel>{{ 'dialogs.add-event.steps.when' | translate }}</ng-template>
 
           <div fxLayout="column" style="margin-top: 16px">
+
+            <mat-error *ngIf="hasEndBeforeStartError(whenFormGroup)" fxLayoutAlign="space-around center">
+
+              <mat-icon color="warn">error</mat-icon>
+
+              <span>{{ errorMessage(whenFormGroup) | translate }}</span>
+
+            </mat-error>
 
             <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="space-around center">
 

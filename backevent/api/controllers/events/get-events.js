@@ -2,12 +2,9 @@ const { Op } = require('sequelize');
 
 module.exports = {
 
-
   friendlyName: 'GET EVENTS',
 
-
   description: 'Get all events',
-
 
   extendedDescription:  'Get all events',
 
@@ -15,22 +12,17 @@ module.exports = {
 
   exits: { success: {  statusCode: 200 } },
 
-  fn: async function ({queryFilter}, exits) {
+  fn: async function ({ queryFilter }, exits) {
 
-    let options = {};
+    let options = { };
 
     if (queryFilter) {
 
       options.where = {
-        [Op.or]: [{
-          name: {
-            [Op.like]: `%${queryFilter}%`
-          },
-          description: {
-            [Op.like]: `%${queryFilter}%`
-          }
-        }]
-      }
+
+        [Op.or]: [ { name: { [Op.like]: `%${queryFilter}%` }, description: { [Op.like]: `%${queryFilter}%` } } ]
+
+      };
 
     }
 

@@ -8,16 +8,27 @@ export const errorMessage = (formControl: AbstractControl | null): string => {
 
     if (errors) {
 
-      console.log(errors);
-
-      const { required, notOptionValid, maxLength } = errors;
+      const { required, notOptionValid, maxlength, endBeforeStart } = errors;
 
       if (required) { return 'messages.errors.required'; }
 
       if (notOptionValid) { return 'messages.errors.notOptionValid'; }
 
-      if(maxLength) { return 'messages.errors.notOptionValid'; }
+      if (maxlength) {
+
+        const { requiredLength } = maxlength;
+
+        return `messages.errors.maxlength.${requiredLength || 0}`;
+      }
+
+      if (endBeforeStart) {
+
+        return `messages.errors.endBeforeStart`;
+
+      }
+
     }
+
   }
 
   return '';

@@ -1,0 +1,11 @@
+# KUMOJIN EVENT APP
+
+## GET STARTED
+
+## DEVELOPMENT
+
+RUN DEV CONTAINER
+
+`docker-compose up --build`
+
+## TEST

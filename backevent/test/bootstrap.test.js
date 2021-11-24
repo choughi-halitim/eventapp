@@ -1,5 +1,3 @@
-'use strict';
-
 const sails = require('sails');
 
 // Before running any tests...
@@ -14,22 +12,26 @@ before(function(done) {
 
     // For example, we might want to skip the Grunt hook,
     // and disable all logs except errors and warnings:
-    hooks: { blueprints: false, orm: false, pubsub: false, grunt: false },
+    hooks:        { grunt: false, orm: false, pubsub: false, blueprints: false },
 
-    log: { level: 'silly' },
+    log:          { level: 'warn' },
 
-  }, (err) => {
+    environment:  'test',
+
+    models:       { migrate:    'drop' }
+
+  }, function(err) {
+
     if (err) { return done(err); }
 
-    // here you can load fixtures, etc.
-    // (for example, you might want to create some records in the database)
-
     return done();
+
   });
+
 });
 
 // After all tests have finished...
-after((done) => {
+after(function(done) {
 
   // here you can clear fixtures, etc.
   // (e.g. you might want to destroy the records you created above)

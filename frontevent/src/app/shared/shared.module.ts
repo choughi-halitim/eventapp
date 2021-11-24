@@ -30,6 +30,7 @@ import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerMod
 import { MatCardModule } from '@angular/material/card';
 import { DisplayDateTimezoneFormatComponent } from '@shared/components/labels/display-date-timezone-format.component';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 const MATERIAL_MODULES = [
 
@@ -37,7 +38,9 @@ const MATERIAL_MODULES = [
 
   MatDividerModule, MatInputModule, MatDatepickerModule, MatNativeDateModule, MatSelectModule, MatAutocompleteModule,
 
-  MatSlideToggleModule, MatProgressBarModule, NgxMatDatetimePickerModule,  NgxMatNativeDateModule, NgxMatTimepickerModule
+  MatSlideToggleModule, MatProgressBarModule, NgxMatDatetimePickerModule,  NgxMatNativeDateModule, NgxMatTimepickerModule,
+
+  MatSnackBarModule
 
 ];
 
