@@ -59,11 +59,11 @@ module.exports = {
       //  ```
       //--------------------------------------------------------------------------
 
-      user: 'postgres',
+      user: 'eventapp',
 
-      password: 'postgres',
+      password: 'eventapp',
 
-      database: 'kumojin-event',
+      database: 'eventapp',
 
       dialect: 'postgres',
 
@@ -71,9 +71,7 @@ module.exports = {
 
         dialect: 'postgres',
 
-        host   : 'localhost',
-
-        port   : 5432,
+        host   : 'database',
 
         logging: console.log
 
@@ -169,8 +167,8 @@ module.exports = {
     ***************************************************************************/
     cors: {
       allRoutes: true,
-      allowOrigins: '*',
-      allowCredentials: false
+      allowResponseHeaders: '*',
+      allowAnyOriginWithCredentialsUnsafe: true
     }
 
   },

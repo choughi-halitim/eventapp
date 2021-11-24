@@ -4,9 +4,11 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { errorMessage } from '@core/helpers/error-message.helper';
 import { KumojinEventService } from '@core/services/kumojin-event.service';
 import * as moment from 'moment';
-import {TimeZoneService} from '@core/services/time-zone.service';
-import {Subscription} from 'rxjs';
-import {KumojinEventInterface} from '@core/interfaces/kumojin-event.interface';
+import { TimeZoneService } from '@core/services/time-zone.service';
+import { Subscription } from 'rxjs';
+import { KumojinEventInterface } from '@core/interfaces/kumojin-event.interface';
+import { EndBeforeStart } from '@core/validators/end-before-start';
+import { getStartAndEndDatetimeHelper } from '@core/helpers/get-start-and-end-datetime.helper';
 
 @Component({
 
@@ -56,11 +58,11 @@ export class AddKumojinEventDialogComponent implements OnInit, OnDestroy {
 
         startTime: this.startTimeCtrl = new FormControl(new Date(), [ Validators.required ]),
 
-        end: this.endCtrl = new FormControl(new Date(), [ Validators.required ]),
+        end: this.endCtrl = new FormControl(new Date(), [ Validators.required]),
 
         endTime: this.endTimeCtrl = new FormControl(new Date(), [ Validators.required ])
 
-      })
+      }, { validators: EndBeforeStart(this.currentTimeZone, this.startCtrl, this.startTimeCtrl, this.endCtrl, this.endTimeCtrl) })
 
     });
 
@@ -111,32 +113,15 @@ export class AddKumojinEventDialogComponent implements OnInit, OnDestroy {
 
     const event = { ...this.whatFormGroup.value, ...this.whenFormGroup.value };
 
-    let start = moment(event.start).set({
-
-      hour: moment(this.startTimeCtrl.value).hour(),
-
-      minute: moment(this.startTimeCtrl.value).minute(),
-
-      second: 0
-
-    }).utcOffset(this.getUtc(), true);
-
-    let end = moment(event.end).set({
-
-      hour: moment(this.endTimeCtrl.value ?? '00').hour(),
-
-      minute: moment(this.endTimeCtrl.value ?? '00').minute(),
-
-      second: 0
-
-    }).utcOffset(this.getUtc(), true);
+    const { start, end } = getStartAndEndDatetimeHelper(this.currentTimeZone, this.startCtrl.value, this.startTimeCtrl.value, this.endCtrl.value, this.endTimeCtrl.value)
 
     return {
       name: event.name,
       description: event.description,
-      start: start.toISOString(true),
-      end: end.toISOString(true)
+      start: start,
+      end: end
     };
+
   }
 
   getUtc(): string {
@@ -147,7 +132,24 @@ export class AddKumojinEventDialogComponent implements OnInit, OnDestroy {
 
 
   getDateOnTimeZone(date: string) {
+
     return  moment(date).tz(this.currentTimeZone).format('dddd DD MMMM yyyy  à HH:mm')
+
+  }
+  hasEndBeforeStartError(whenGroup: AbstractControl): boolean {
+
+    const { errors } = whenGroup;
+
+    if (errors) {
+
+      const { endBeforeStart } = errors;
+
+      return !!endBeforeStart;
+
+    }
+
+    return false;
+
   }
 
 }

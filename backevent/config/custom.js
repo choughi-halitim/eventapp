@@ -19,4 +19,10 @@ module.exports.custom = {
   // stripeSecret: 'sk_test_Zzd814nldl91104qor5911gjald',
   // …
 
+  version: 1.0,
+
+  baseUrl: '0.0.0.0',
+
+  environment: process.env.NODE_ENV ?? 'development'
+
 };

@@ -7,17 +7,41 @@ services:
     build:
         context: ./backevent
     ports:
-      - "1337:1337"
+      - 1337:1337
     volumes:
-      - "./backevent/:/usr/src/app"
-    command: sh -c "npm install --prune && npm start"
+      - ./backevent:/usr/src/app/
+    command: sh -c "npm start"
+    depends_on: [postgres]
+    links:
+      - db:database
+      - db-test:database-test
+
+  db:
+    image: postgres:14-alpine
+    container_name: postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+
+  db-test:
+    image: postgres:14-alpine
+    container_name: postgres
+    ports:
+      - 5432:5433
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER_TEST}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD_TEST}
+      - POSTGRES_DB=${POSTGRES_DB_TEST}
 
   frontevent:
     container_name: frontevent
     build:
       context: ./frontevent
     ports:
-      - "4200:4200"
+      - 4200:4200
     volumes:
-      - "./frontevent/:/usr/src/app"
-    command: sh -c "npm install --prune && npm start"
+      - ./frontevent:/usr/src/app/
+    command: sh -c "npm start"

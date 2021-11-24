@@ -72,6 +72,26 @@ module.exports = {
       ****************************************************************************/
       // ssl: { rejectUnauthorized: true },
 
+      user: 'eventapp-test',
+
+      password: 'eventapp-test',
+
+      database: 'eventapp-test',
+
+      dialect: 'postgres',
+
+      options: {
+
+        dialect: 'postgres',
+
+        host   : 'database-test',
+
+        port   : 5433,
+
+        logging: console.log
+
+      }
+
     },
 
   },
@@ -90,7 +110,7 @@ module.exports = {
     * https://sailsjs.com/docs/concepts/models-and-orm/model-settings#?migrate *
     *                                                                          *
     ***************************************************************************/
-    migrate: 'safe',
+    migrate: 'drop',
 
     /***************************************************************************
     *                                                                          *

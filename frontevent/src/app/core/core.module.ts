@@ -3,11 +3,21 @@ import { TimeZoneService } from '@core/services/time-zone.service';
 import { ApplicationConfigService } from '@core/services/application-config.service';
 import { KumojinEventService } from '@core/services/kumojin-event.service';
 import { KumojinEventsResolver } from '@core/resolvers/kumojin-events.resolver';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ErrorResponseInterceptor } from '@core/interceptors/error-response.interceptor';
+import { ErrorMessageService } from '@core/services/error-message.service';
 
-const SERVICES = [ KumojinEventService, TimeZoneService, ApplicationConfigService ];
+const SERVICES = [ KumojinEventService, TimeZoneService, ApplicationConfigService, ErrorMessageService ];
 
 
-const PROVIDERS = [ KumojinEventsResolver ];
+const PROVIDERS = [
+
+  KumojinEventsResolver,
+
+  { provide: HTTP_INTERCEPTORS, useClass: ErrorResponseInterceptor, multi: true }
+
+];
+
 
 @NgModule({
 

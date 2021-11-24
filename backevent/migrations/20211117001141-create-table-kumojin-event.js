@@ -1,9 +1,3 @@
-'use strict';
-
-var dbm;
-var type;
-var seed;
-
 /**
   * We receive the dbmigrate dependency from dbmigrate initially.
   * This enables us to not have to rely on NODE_PATH.
@@ -18,21 +12,21 @@ exports.up = function(db) {
 
   return db.createTable('kumojin-events', {
 
-    id: { type: 'int', primaryKey: true, autoIncrement: true },
+    'id': { type: 'int', primaryKey: true, autoIncrement: true },
 
-    name: { type: 'string', length: 32, allowNull: false },
+    'name': { type: 'string', length: 32, allowNull: false },
 
-    description: { type: 'string', length: 1000, allowNull: false },
+    'description': { type: 'string', length: 1000, allowNull: false },
 
-    start:  { type: 'timestamp', timezone: true, allowNull: false },
+    'start':  { type: 'timestamp', timezone: true, allowNull: false },
 
-    end:  { type: 'timestamp', timezone: true, allowNull: false },
+    'end':  { type: 'timestamp', timezone: true, allowNull: false },
 
-    created_at: { type: 'timestamp', timezone: true, allowNull: false },
+    'created_at': { type: 'timestamp', timezone: true, allowNull: false },
 
-    updated_at: { type: 'timestamp', timezone: true, allowNull: false },
+    'updated_at': { type: 'timestamp', timezone: true, allowNull: false },
 
-    deleted_at: { type: 'timestamp', timezone: true },
+    'deleted_at': { type: 'timestamp', timezone: true },
 
   });
 
@@ -43,5 +37,5 @@ exports.down = function(db) {
 };
 
 exports._meta = {
-  "version": 1
+  'version': 1
 };
