@@ -2,20 +2,6 @@ version: '3'
 
 services:
 
-  backevent:
-    container_name: backevent
-    build:
-        context: ./backevent
-    ports:
-      - 1337:1337
-    volumes:
-      - ./backevent:/usr/src/app/
-    command: sh -c "npm start"
-    depends_on: [postgres]
-    links:
-      - db:database
-      - db-test:database-test
-
   db:
     image: postgres:14-alpine
     container_name: postgres
@@ -28,13 +14,27 @@ services:
 
   db-test:
     image: postgres:14-alpine
-    container_name: postgres
+    container_name: postgres-test
     ports:
       - 5432:5433
     environment:
       - POSTGRES_USER=${POSTGRES_USER_TEST}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD_TEST}
       - POSTGRES_DB=${POSTGRES_DB_TEST}
+
+  backevent:
+    container_name: backevent
+    build:
+      context: ./backevent
+    ports:
+      - 1337:1337
+    volumes:
+      - ./backevent:/usr/src/app/
+    command: sh -c "npm start"
+    depends_on: [postgres]
+    links:
+      - db:database
+      - db-test:database-test
 
   frontevent:
     container_name: frontevent
