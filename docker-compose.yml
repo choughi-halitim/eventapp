@@ -16,7 +16,7 @@ services:
     image: postgres:14-alpine
     container_name: postgres-test
     ports:
-      - 5432:5433
+      - 5433:5432
     environment:
       - POSTGRES_USER=${POSTGRES_USER_TEST}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD_TEST}
@@ -45,3 +45,6 @@ services:
     volumes:
       - ./frontevent:/usr/src/app/
     command: sh -c "npm start"
+    depends_on: [backevent]
+    links:
+      - backevent
