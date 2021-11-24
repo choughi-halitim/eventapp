@@ -6,8 +6,7 @@ export class TimeZoneService {
 
   private _timeZoneBehaviorSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
-  constructor() {
-  }
+  constructor() { }
 
   getTimeZoneBehaviorSubject(): BehaviorSubject<string> {
 

@@ -8,25 +8,27 @@ module.exports = {
 
   inputs: {
 
-    name:         { type: 'string', maxLength: 32, required: true},
+    name:         { type: 'string', maxLength: 32, required: true },
 
-    description:  { type: 'string', maxLength: 1000, required: true},
+    description:  { type: 'string', maxLength: 1000, required: true },
 
-    startDate:    { type: 'string', required: true},
+    start:        { type: 'string', required: true },
 
-    endDate:    { type: 'string', required: true},
+    end:          { type: 'string', required: true },
 
   },
 
   exits: {
 
-    success:    {  statusCode: 201 },
+    success:            {  statusCode: 201 },
 
-    badRequest: {  statusCode: 400 },
+    badRequest:         {  statusCode: 400 },
+
+    startAfterEndError: { statusCode: 400, message: 'StartDatetimeIsAfterEndDatetimeError' },
 
   },
 
-  fn: async function ({name, description, startDate, endDate}, exits) {
+  fn: async function ({name, description, start, end}, exits) {
 
     try {
 
@@ -36,17 +38,17 @@ module.exports = {
 
         description: description.trim(),
 
-        start: startDate,
+        start: start,
 
-        end:  endDate,
+        end:  end,
 
       });
 
       return exits.success(kumojinEventCreated);
 
-    } catch (e) {
+    } catch (error) {
 
-      throw 'badRequest';
+      throw error  ?? 'badRequest';
 
     }
 

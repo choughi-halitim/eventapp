@@ -1,9 +1,9 @@
-import {BehaviorSubject, Observable, ReplaySubject, Subject} from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import {CrudAbstractServiceInterface} from '@core/services/crud-abstract.service.interface';
-import {HttpResponseGetAllInterface} from '@core/interfaces/http-response-get-all.interface';
-import {map} from 'rxjs/operators';
-import {EventEmitter} from '@angular/core';
+import {Observable } from 'rxjs';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import { CrudAbstractServiceInterface } from '@core/services/crud-abstract.service.interface';
+import { HttpResponseGetAllInterface } from '@core/interfaces/http-response-get-all.interface';
+import { map } from 'rxjs/operators';
+import { EventEmitter } from '@angular/core';
 
 export abstract class CrudAbstractService<T> implements CrudAbstractServiceInterface<T>{
 
@@ -30,9 +30,15 @@ export abstract class CrudAbstractService<T> implements CrudAbstractServiceInter
 
   }
 
-  getAll(): Observable<HttpResponseGetAllInterface<T>> {
+  getAll(httpParams: HttpParams | null = null): Observable<HttpResponseGetAllInterface<T>> {
 
-    return this.http.get<HttpResponseGetAllInterface<T>>(this._API_PATH);
+    let params = {};
+
+    if (httpParams) { params = httpParams; }
+
+    return this.http.get<HttpResponseGetAllInterface<T>>(this._API_PATH, {
+      params : params
+    });
 
   }
 
@@ -45,14 +51,13 @@ export abstract class CrudAbstractService<T> implements CrudAbstractServiceInter
 
   add(addData: T): Observable<any> {
 
-    return this.http.post<any>(this._API_PATH, addData).pipe(map((response) => {
+    return this.http.post<any>(this._API_PATH, addData , { observe: 'response'}).pipe(map((response) => {
 
       this._updateEvent.emit(null );
 
       return response;
 
     }));
-
   }
 
   update(addData: T): Observable<any> {

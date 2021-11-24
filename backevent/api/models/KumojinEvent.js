@@ -1,4 +1,5 @@
 const { DataTypes } = require('sequelize');
+const moment = require('moment');
 
 module.exports = {
 
@@ -14,15 +15,27 @@ module.exports = {
 
   },
 
-  associations() {
+  associations() { },
 
-  },
-  defaultScope() {
-    return { };
-  },
+  defaultScope() { return { }; },
+
   options: {
 
     hooks: {
+
+      async beforeValidate(instance) {
+
+          const start = moment(instance.start);
+
+          const end = moment(instance.end);
+
+          if (start.isAfter(end)) {
+
+            throw 'startAfterEndError'
+
+          }
+
+      },
 
       async beforeCreate (instance, options) {
 
@@ -52,12 +65,26 @@ module.exports = {
 
         options = options || {};
 
-        // eslint-disable-next-line no-undef
         return  SequelizeConnections['default'].transaction(async t => {
 
           options.transaction = t;
 
           return KumojinEvent.create(data, options);
+
+
+        });
+
+      },
+
+      async bulkCreateSafe(data, options) {
+
+        options = options || {};
+
+        return  SequelizeConnections['default'].transaction(async t => {
+
+          options.transaction = t;
+
+          return KumojinEvent.bulkCreate(data, options);
 
 
         });
@@ -74,7 +101,6 @@ module.exports = {
 
         options = options || {};
 
-        // eslint-disable-next-line no-undef
         return  SequelizeConnections['default'].transaction(async t => {
 
           options.transaction = t;

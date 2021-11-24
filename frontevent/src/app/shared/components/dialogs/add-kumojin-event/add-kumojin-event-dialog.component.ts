@@ -1,10 +1,14 @@
-import { Component } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { errorMessage } from '@core/helpers/error-message.helper';
 import { KumojinEventService } from '@core/services/kumojin-event.service';
 import * as moment from 'moment';
-import {map} from 'rxjs/operators';
+import { TimeZoneService } from '@core/services/time-zone.service';
+import { Subscription } from 'rxjs';
+import { KumojinEventInterface } from '@core/interfaces/kumojin-event.interface';
+import { EndBeforeStart } from '@core/validators/end-before-start';
+import { getStartAndEndDatetimeHelper } from '@core/helpers/get-start-and-end-datetime.helper';
 
 @Component({
 
@@ -13,9 +17,11 @@ import {map} from 'rxjs/operators';
   styleUrls: ['add-kumojin-event-dialog.component.sass']
 
 })
-export class AddKumojinEventDialogComponent {
+export class AddKumojinEventDialogComponent implements OnInit, OnDestroy {
 
-  myDatePicker = '';
+  currentTimeZone!: string;
+
+  timeZoneSubscription!: Subscription;
 
   kumojinEventFormGroup: FormGroup;
 
@@ -26,48 +32,55 @@ export class AddKumojinEventDialogComponent {
 
   descriptionCtrl: FormControl;
 
-  startDateCtrl: FormControl;
+  startCtrl: FormControl;
+  startTimeCtrl!: FormControl;
 
-  endDateCtrl: FormControl;
+  endCtrl: FormControl;
+  endTimeCtrl!: FormControl;
 
-  constructor(
-    private _dialogRef: MatDialogRef<AddKumojinEventDialogComponent>,
-    private _kumojinEventService: KumojinEventService) {
+  constructor(private _dialogRef: MatDialogRef<AddKumojinEventDialogComponent>,
+              private _timeZoneService: TimeZoneService,
+              private _kumojinEventService: KumojinEventService) {
 
     this.kumojinEventFormGroup = new FormGroup({
 
       what: this.whatFormGroup = new FormGroup({
+
         name: this.nameCtrl = new FormControl(null, [ Validators.required, Validators.maxLength(32) ]),
 
-        description: this.descriptionCtrl = new FormControl(null, [ Validators.required ]),
+        description: this.descriptionCtrl = new FormControl(null, [ Validators.required ])
+
       }),
 
       when: this.whenFormGroup = new FormGroup({
 
-        startDate: this.startDateCtrl = new FormControl(new Date(), [ Validators.required ]),
+        start: this.startCtrl = new FormControl(new Date(), [ Validators.required ]),
 
-        endDate: this.endDateCtrl = new FormControl(new Date(), [ Validators.required ]),
+        startTime: this.startTimeCtrl = new FormControl(new Date(), [ Validators.required ]),
 
-      }),
+        end: this.endCtrl = new FormControl(new Date(), [ Validators.required]),
 
+        endTime: this.endTimeCtrl = new FormControl(new Date(), [ Validators.required ])
+
+      }, { validators: EndBeforeStart(this.currentTimeZone, this.startCtrl, this.startTimeCtrl, this.endCtrl, this.endTimeCtrl) })
 
     });
 
-    this.startDateCtrl.valueChanges.pipe(map((value) => {
-      return moment(value).toISOString()
-    })).subscribe((value) => {
-      console.log('start value:', value);
-      console.log('start value:', moment(value));
-      console.log(moment(value).format());
-    })
+  }
 
-    this.endDateCtrl.valueChanges.pipe(map((value) => {
-      return moment(value).toISOString()
-    })).subscribe((value) => {
-      console.log('end value:', value);
-      console.log('end value:', moment(value));
-      console.log(moment(value).format());
-    })
+  ngOnInit() {
+
+    this.timeZoneSubscription = this._timeZoneService.getTimeZoneBehaviorSubject().subscribe((timeZone) => {
+
+      this.currentTimeZone = timeZone;
+
+    });
+  }
+
+  ngOnDestroy() {
+
+    if (this.timeZoneSubscription) { this.timeZoneSubscription.unsubscribe(); }
+
   }
 
   errorMessage(formControl: AbstractControl | null): string {
@@ -80,7 +93,9 @@ export class AddKumojinEventDialogComponent {
 
     if (this.kumojinEventFormGroup.valid) {
 
-      this._kumojinEventService.add({ ...this.whatFormGroup.value, ...this.whenFormGroup.value }).subscribe((response) => {
+      const kumojinEventData = this.changeOnFormTimeZoneDates();
+
+      this._kumojinEventService.add(kumojinEventData).subscribe((response) => {
 
         if (response) {
 
@@ -91,6 +106,49 @@ export class AddKumojinEventDialogComponent {
       });
 
     }
+
+  }
+
+  changeOnFormTimeZoneDates(): KumojinEventInterface {
+
+    const event = { ...this.whatFormGroup.value, ...this.whenFormGroup.value };
+
+    const { start, end } = getStartAndEndDatetimeHelper(this.currentTimeZone, this.startCtrl.value, this.startTimeCtrl.value, this.endCtrl.value, this.endTimeCtrl.value)
+
+    return {
+      name: event.name,
+      description: event.description,
+      start: start,
+      end: end
+    };
+
+  }
+
+  getUtc(): string {
+
+    return moment.tz(this.currentTimeZone).format('Z')
+
+  }
+
+
+  getDateOnTimeZone(date: string) {
+
+    return  moment(date).tz(this.currentTimeZone).format('dddd DD MMMM yyyy  à HH:mm')
+
+  }
+  hasEndBeforeStartError(whenGroup: AbstractControl): boolean {
+
+    const { errors } = whenGroup;
+
+    if (errors) {
+
+      const { endBeforeStart } = errors;
+
+      return !!endBeforeStart;
+
+    }
+
+    return false;
 
   }
 

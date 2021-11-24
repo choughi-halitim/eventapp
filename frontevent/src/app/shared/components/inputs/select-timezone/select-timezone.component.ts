@@ -1,34 +1,41 @@
-import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
-import {FormControl} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 import * as moment from 'moment';
-import {errorMessage} from '@core/helpers/error-message.helper';
+import { TimeZoneService } from '@core/services/time-zone.service';
+import {IsInListOptionsValidator} from '@core/validators/is-in-list-options.validator';
 
 @Component({
+
   selector: 'app-select-timezone',
+
   templateUrl: './select-timezone.component.html',
+
   styleUrls: ['./select-timezone.component.sass'],
+
 })
 export class SelectTimezoneComponent implements OnInit {
-
 
   timeZones = moment.tz.names();
 
   filteredTimeZonesOptions!: Observable<string[]>;
 
-  @Input('timeZone') timeZone!: string;
+  timeZoneCtrl = new FormControl( null, IsInListOptionsValidator(moment.tz.names()));
 
-  @Input('timeZoneCtrl') timeZoneCtrl!: FormControl;
-
-  constructor() {
+  constructor( private _timeZoneService: TimeZoneService) {
   }
 
   ngOnInit() {
+
     this.filteredTimeZonesOptions = this.timeZoneCtrl.valueChanges.pipe(
+
       startWith(''),
+
       map(value => this._filter(value)),
+
     );
+
   }
 
   private _filter(value: string): string[] {
@@ -37,9 +44,17 @@ export class SelectTimezoneComponent implements OnInit {
 
   }
 
-  errorMessage(formControl: FormControl): string {
+  timeZoneChange() {
 
-    return errorMessage(formControl);
+    if (this.timeZoneCtrl.valid) {
+
+      this._timeZoneService.setTimeZoneBehaviorSubject(this.timeZoneCtrl.value);
+
+      this.timeZoneCtrl.patchValue('');
+
+      this.timeZoneCtrl.markAsPristine();
+
+    }
 
   }
 

@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/r
 import { Observable } from 'rxjs';
 import { KumojinEventService } from '@core/services/kumojin-event.service';
 import { KumojinEventInterface } from '@core/interfaces/kumojin-event.interface';
-import {HttpResponseGetAllInterface} from '@core/interfaces/http-response-get-all.interface';
+import { HttpResponseGetAllInterface } from '@core/interfaces/http-response-get-all.interface';
 
 @Injectable()
 export class KumojinEventsResolver implements Resolve<HttpResponseGetAllInterface<KumojinEventInterface>> {

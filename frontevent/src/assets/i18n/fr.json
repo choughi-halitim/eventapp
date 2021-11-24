@@ -61,7 +61,12 @@
     "errors": {
       "required": "Ce champ est requis",
       "notOptionValid": "La fuseau horaire saisi n'existe pas",
-      "maxLenght": ""
+      "endBeforeStart": "La date et heure de fin est avant le début de l'événement",
+      "maxlenght": {
+        "0": "La taille maximum du champ est dépassé",
+        "32": "La taille maximum du champ est  de 32 caractères"
+      }
     }
-  }
+  },
+  "startAfterEndError": "La date et heure du début doit être avant la date et heure de fin"
 }

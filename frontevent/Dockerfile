@@ -4,9 +4,9 @@ RUN mkdir /usr/src/app
 
 WORKDIR /usr/src/app
 
-COPY package.json package.json
+COPY package.json .
 
-RUN npm install -g npm && npm install --force && npm cache clean --force && npm install @angular/cli
+RUN npm install -g npm  @angular/cli && npm cache clean --force && npm install --force
 
 COPY . .
 
