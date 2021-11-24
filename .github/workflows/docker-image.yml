@@ -1,25 +1,19 @@
 name: Test workflow
-
-# Trigger on push to any branch
 on: push
-
-# GitHub Actions jobs
 jobs:
-  # Test configuration
   test:
     name: Run tests
 
-    # Linux VM
     runs-on: ubuntu-latest
-    # Node.js Docker image for VM
     container:
       image: node:erbium
-    # All steps for test
     steps:
       - name: Checkout branch to VM
         uses: actions/checkout@v1
-      - name: Run ESLint & Jest
+      - name: Run test
         run: |
           cd backevent
-          npm install
+          npm install -g sails
+          npm install cache clean --force
+          npm install --prune
           npm run test
