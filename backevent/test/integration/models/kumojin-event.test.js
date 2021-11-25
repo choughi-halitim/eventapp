@@ -1,24 +1,29 @@
-describe('KumojinEvent (Model)', () => {
+const moment = require('moment');
 
-  describe('Create a Kumojin Event', () => {
+describe('KumojinEvent (Model)', function() {
 
-    it('should return 1 event', async (done) => {
+  describe('Create a Kumojin Event', function() {
+
+    it('should return 1 event', function(done) {
 
       const start = moment();
 
       const end = moment().add(1 , 'hours');
 
-      const events = await  KumojinEvent.createSafe({
+      KumojinEvent.createSafe({
 
         name: 'test 1', description: 'desc 1', start: start, end: end
 
-      });
 
-      if (events && events.length !== 1) {
+      }).then((event) => {
+
+        return done();
+
+      }).catch(() => {
+
         return done(new Error(''));
-      }
 
-      return done();
+      });
 
     });
 
