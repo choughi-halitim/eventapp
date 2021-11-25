@@ -7,17 +7,19 @@ describe('Post Event', function() {
 
   describe('#postEvent()', function() {
 
+    const start = moment();
+
+    const end = moment(start).add(1, 'days');
+
     before(function(done) {
-
-      const start = moment();
-
-      const end = moment(start).add(1, 'days');
 
       const event =  { name: 'My Event', description: 'My event description', start: start, end: end };
 
-      KumojinEvent.createSafe(event);
+      KumojinEvent.createSafe(event)
 
-      return done();
+        .then(() => { return done(); })
+
+        .catch(() => { return done(new Error("create event")); });
 
     });
 
@@ -25,25 +27,23 @@ describe('Post Event', function() {
 
       sails.log.debug(sails.hooks.http.app);
 
-      supertest(sails.hooks.http.app).get('/api/v1/events').send().expect(201).end(function (err, response) {
+      supertest(sails.hooks.http.app).get('/api/v1/events').send().expect(200).end(function (err, response) {
 
         if (err) return done(new Error(err));
 
-        const { count, rows } = response;
+        const { count, rows } = response.body;
 
-        expect(count).to.equal(1);
+        expect(count).to.equal(5);
 
-        expect(rows.length).to.equal(1);
+        expect(rows.length).to.equal(5);
 
-        expect(rows[0].name).to.equal('My Event');
+        expect(rows[count -1].name).to.equal('My Event');
 
-        expect(rows[0].description).to.equal('My event description');
+        expect(rows[count -1].description).to.equal('My event description');
 
-        expect(rows[0].start).to.equal(start);
+        expect(moment(rows[count -1].start).isBefore(moment(rows[count -1].end))).to.equal(true);
 
-        expect(rows[0].end).to.equal(end);
-
-        return done();
+        done();
 
       });
 
