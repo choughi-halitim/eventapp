@@ -2,7 +2,7 @@ version: '3'
 
 services:
 
-  db-test:
+  db:
     image: postgres:14-alpine
     container_name: postgres-test
     ports:
@@ -21,10 +21,9 @@ services:
     volumes:
       - ./backevent:/usr/src/app/
     command: sh -c "npm start"
-    depends_on: [db, db-test]
+    depends_on: [db]
     links:
       - db:database
-      - db-test:database-test
 
   frontevent:
     container_name: frontevent
