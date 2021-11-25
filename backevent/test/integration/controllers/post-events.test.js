@@ -1,12 +1,13 @@
 // test/integration/controllers/UserController.test.js
 var supertest = require('supertest');
 const {expect} = require('chai');
+const moment = require('moment');
 
 describe('Post Event', function() {
 
   describe('#postEvent()', function() {
 
-    before('create an event on datadase', async(done) => {
+    before(function(done) {
 
       const start = moment();
 
@@ -14,9 +15,9 @@ describe('Post Event', function() {
 
       const event =  { name: 'My Event', description: 'My event description', start: start, end: end };
 
-      await KumojinEvent.createSage(event);
+      KumojinEvent.createSafe(event);
 
-      done();
+      return done();
 
     });
 
@@ -24,7 +25,9 @@ describe('Post Event', function() {
 
       sails.log.debug(sails.hooks.http.app);
 
-      supertest(sails.hooks.http.app).get('/api/v1/events').send().expect(201, done).end((err, response) => {
+      supertest(sails.hooks.http.app).get('/api/v1/events').send().expect(201).end(function (err, response) {
+
+        if (err) return done(new Error(err));
 
         const { count, rows } = response;
 
@@ -40,7 +43,7 @@ describe('Post Event', function() {
 
         expect(rows[0].end).to.equal(end);
 
-        done();
+        return done();
 
       });
 

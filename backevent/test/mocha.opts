@@ -4,4 +4,4 @@
 --ui bdd
 --globals sails
 --timeout 5s
---slow 2000
+--slow 5000

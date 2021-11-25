@@ -14,9 +14,11 @@ before(function(done) {
     // and disable all logs except errors and warnings:
     hooks:        { grunt: false, orm: false, pubsub: false, blueprints: false },
 
-    log:          { level: 'warn' },
+    log:          { level: 'silly' },
 
     environment:  'test',
+
+    port: 1338,
 
     models:       { migrate:    'drop' }
 
