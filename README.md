@@ -4,8 +4,12 @@
 
 ## DEVELOPMENT
 
-RUN DEV CONTAINER
+###RUN DEV CONTAINER DEV
 
-`docker-compose up --build`
+`docker-compose up -f docker-compose-dev.yml --build`
 
 ## TEST
+
+###RUN DEV CONTAINER TEST
+
+`docker-compose up -f docker-compose-test.yml --build`
