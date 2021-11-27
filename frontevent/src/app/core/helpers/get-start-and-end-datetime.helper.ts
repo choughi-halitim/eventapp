@@ -8,25 +8,16 @@ export const getStartAndEndDatetimeHelper = (timezone: string,
 
   const utc =  moment.tz(timezone).format('Z')
 
-  let start = moment(startDate).set({
+  let start = moment(startDate)
+    .hours(moment(startTime ?? '00').hours())
+    .minutes(moment(startTime ?? '00').minutes())
+    .seconds(0)
+    .utcOffset(utc, true);
 
-    hour: moment(startTime).hour(),
-
-    minute: moment(startTime).minute(),
-
-    second: 0
-
-  }).utcOffset(utc, true);
-
-  let end = moment(endDate).set({
-
-    hour: moment(endTime ?? '00').hour(),
-
-    minute: moment(endTime ?? '00').minute(),
-
-    second: 0
-
-  }).utcOffset(utc, true);
+  let end = moment(endDate)
+    .hours(moment(endTime ?? '00').hours())
+    .minutes(moment(endTime ?? '00').minutes())
+    .seconds(0).utcOffset(utc, true);
 
   return {
     start: start.toISOString(true),
