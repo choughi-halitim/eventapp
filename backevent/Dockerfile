@@ -1,4 +1,4 @@
-FROM node:14.7
+FROM node:14.7.0
 
 RUN mkdir -p /usr/src/app
 
@@ -6,7 +6,11 @@ WORKDIR /usr/src/app
 
 COPY package.json .
 
-RUN npm install -g npm sails nodemon && npm cache clean --force && npm install
+RUN npm install -g npm sails nodemon
+
+RUN npm cache clean --force
+
+RUN npm install
 
 COPY . .
 
