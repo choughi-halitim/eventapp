@@ -6,7 +6,7 @@ WORKDIR /usr/src/app
 
 COPY package.json .
 
-RUN npm install -g npm sails nodemon mocha && npm cache clean --force && npm install
+RUN npm install -g npm sails nodemon mocha && npm cache clean --force && npm install --force
 
 COPY . .
 
