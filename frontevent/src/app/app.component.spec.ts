@@ -3,10 +3,9 @@ import { AppComponent } from './app.component';
 import { TimeZoneService } from '@core/services/time-zone.service';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from '@shared/shared.module';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateTestingModule } from 'ngx-translate-testing';
 import { ErrorMessageService } from '@core/services/error-message.service';
-import {FlexLayoutModule} from '@angular/flex-layout';
 
 describe('AppComponent', () => {
 
@@ -20,11 +19,9 @@ describe('AppComponent', () => {
 
         SharedModule,
 
-        FlexLayoutModule,
-
         TranslateTestingModule.withTranslations({ en: require('src/assets/i18n/fr.json') }),
 
-        NoopAnimationsModule
+        BrowserAnimationsModule
 
       ],
 
