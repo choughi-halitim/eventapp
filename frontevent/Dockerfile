@@ -3,6 +3,8 @@ FROM node:lts
 RUN apt-get update \
     && apt-get install -y --no-install-recommends chromium
 
+RUN apt-get install -qqy x11-apps
+
 ENV CHROME_BIN=chromium
 
 RUN mkdir /usr/src/app
