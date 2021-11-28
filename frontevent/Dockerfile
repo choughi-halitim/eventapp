@@ -1,5 +1,9 @@
 FROM node:lts
 
+RUN apt-get update && apt install chromium -y
+
+ENV CHROME_BIN=/usr/bin/chromium
+
 RUN mkdir /usr/src/app
 
 WORKDIR /usr/src/app

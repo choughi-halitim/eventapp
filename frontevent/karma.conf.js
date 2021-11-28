@@ -3,6 +3,16 @@
 
 module.exports = function (config) {
   config.set({
+    customLaunchers: {
+      ChromeHeadless: {
+        base: 'Chrome',
+        flags: [
+          '--no-sandbox',
+          '--disable-gpu',
+          '--headless',
+        ]
+      }
+    },
     basePath: '',
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
     plugins: [

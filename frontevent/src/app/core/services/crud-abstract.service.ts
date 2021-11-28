@@ -5,13 +5,24 @@ import { HttpResponseGetAllInterface } from '@core/interfaces/http-response-get-
 import { map } from 'rxjs/operators';
 import { EventEmitter } from '@angular/core';
 
+/**
+ * @abstract class generique pour les appels http utilisant le CRUD
+ * @typeParam T inteface object
+ */
 export abstract class CrudAbstractService<T> implements CrudAbstractServiceInterface<T>{
 
-  // Observable navItem source
+  /**
+   * @private
+   */
   private _updateEvent: EventEmitter<null>= new EventEmitter<null>();
 
   _API_PATH: string;
 
+  /**
+   * @param API_PATH
+   * @param http
+   * @protected
+   */
   protected constructor(API_PATH: string, protected http: HttpClient) {
 
     if (!API_PATH) {
@@ -30,6 +41,10 @@ export abstract class CrudAbstractService<T> implements CrudAbstractServiceInter
 
   }
 
+  /**
+   *
+   * @param httpParams
+   */
   getAll(httpParams: HttpParams | null = null): Observable<HttpResponseGetAllInterface<T>> {
 
     let params = {};
@@ -42,6 +57,10 @@ export abstract class CrudAbstractService<T> implements CrudAbstractServiceInter
 
   }
 
+  /**
+   *
+   * @param primaryKey
+   */
   getByPk(primaryKey: string): Observable<T> {
 
     return this.http.get<T>(`${this._API_PATH}/${primaryKey}`);
@@ -49,6 +68,9 @@ export abstract class CrudAbstractService<T> implements CrudAbstractServiceInter
   }
 
 
+  /**
+   * @param addData
+   */
   add(addData: T): Observable<any> {
 
     return this.http.post<any>(this._API_PATH, addData , { observe: 'response'}).pipe(map((response) => {
@@ -60,6 +82,9 @@ export abstract class CrudAbstractService<T> implements CrudAbstractServiceInter
     }));
   }
 
+  /**
+   * @param addData
+   */
   update(addData: T): Observable<any> {
 
     return this.http.put<any>(this._API_PATH, addData).pipe(map((response) => {
@@ -72,18 +97,31 @@ export abstract class CrudAbstractService<T> implements CrudAbstractServiceInter
 
   }
 
-  patch(addData: T): Observable<any> {
+  /**
+   *
+   * @param addData
+   */
+  patch(addData: T): Observable<T> {
 
     return this.http.patch<any>(this._API_PATH, addData);
 
   }
 
-  delete(addData: T): Observable<any> {
+  /**
+   *
+   * @param addData
+   * @typeparam T génerique CRUD Interface
+   * @return Observable<T>
+   */
+  delete(addData: T): Observable<T> {
 
     return this.http.delete<any>(this._API_PATH, addData);
 
   }
 
-  get updateEvent() { return this._updateEvent; }
+  /**
+   * @return EventEmitter<null>
+   */
+  get updateEvent():EventEmitter<null> { return this._updateEvent; }
 
 }

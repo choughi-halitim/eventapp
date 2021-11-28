@@ -8,9 +8,9 @@ module.exports = {
 
   extendedDescription:  'Get all events',
 
-  inputs: { queryFilter: { type: 'string' } },
+  inputs: { queryFilter:  { type: 'string'    } },
 
-  exits: { success: {  statusCode: 200 } },
+  exits:  { success:      {  statusCode: 200  } },
 
   fn: async function ({ queryFilter }, exits) {
 

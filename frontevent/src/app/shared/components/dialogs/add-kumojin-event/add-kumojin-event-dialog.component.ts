@@ -1,9 +1,8 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { errorMessage } from '@core/helpers/error-message.helper';
 import { KumojinEventService } from '@core/services/kumojin-event.service';
-import * as moment from 'moment';
 import { TimeZoneService } from '@core/services/time-zone.service';
 import { Subscription } from 'rxjs';
 import { KumojinEventInterface } from '@core/interfaces/kumojin-event.interface';
@@ -126,16 +125,17 @@ export class AddKumojinEventDialogComponent implements OnInit, OnDestroy {
 
   getUtc(): string {
 
-    return moment.tz(this.currentTimeZone).format('Z')
+    return this._timeZoneService.getUtc();
 
   }
 
 
   getDateOnTimeZone(date: string) {
 
-    return  moment(date).tz(this.currentTimeZone).format('dddd DD MMMM yyyy  à HH:mm')
+    return this._timeZoneService.getDateOnTimeZone(date);
 
   }
+
   hasEndBeforeStartError(whenGroup: AbstractControl): boolean {
 
     const { errors } = whenGroup;

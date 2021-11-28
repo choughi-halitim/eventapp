@@ -34,7 +34,7 @@ services:
     depends_on: [db, db-test]
     links:
       - db:database
-      - db-test:database-test
+      - db-test:databasetest
 
   frontevent:
     container_name: frontevent
