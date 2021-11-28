@@ -1,10 +1,9 @@
 FROM node:lts
 
-RUN apt-get update -y
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends chromium
 
-RUN apt install chromium -y
-
-ENV CHROME_BIN=/usr/bin/chromium
+ENV CHROME_BIN=chromium
 
 RUN mkdir /usr/src/app
 

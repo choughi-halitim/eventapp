@@ -9,7 +9,9 @@ module.exports = function (config) {
         flags: [
           '--no-sandbox',
           '--disable-gpu',
-          '--headless',
+          '--disable-dev-shm-usage',
+          '--ignore-certificate-errors',
+          '--window-size=1920,1080'
         ]
       }
     },
