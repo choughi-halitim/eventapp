@@ -1,4 +1,4 @@
-FROM node:14.7
+FROM node:14.7.0
 
 RUN apt-get update && apt install chromium -y
 

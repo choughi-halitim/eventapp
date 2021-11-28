@@ -1,6 +1,6 @@
 {
 
-  "name": "KumonjinEventApp",
+  "name": "kumonjin event app",
   "private": false,
   "version": "0.0.1",
   "description": "Event manager application",
@@ -38,7 +38,7 @@
   "scripts": {
 
     "start": "TZ=UTC NODE_ENV=development nodemon app.js",
-    "test": "mocha test/bootstrap.test.js test/integration/**/*.test.js",
+    "test": "node ./node_modules/mocha/bin/mocha test/bootstrap.test.js test/integration/**/*.test.js",
     "lint": "./node_modules/eslint/bin/eslint.js . --max-warnings=0 --report-unused-disable-directives && echo '✔  Your .js files look good.'"
 
   },
