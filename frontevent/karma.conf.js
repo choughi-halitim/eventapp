@@ -7,11 +7,13 @@ module.exports = function (config) {
       ChromeHeadless: {
         base: 'Chrome',
         flags: [
+          '--disable-web-security',
           '--no-sandbox',
-          '--disable-gpu',
+          '--disable-setuid-sandbox',
           '--disable-dev-shm-usage',
-          '--ignore-certificate-errors',
-          '--window-size=1920,1080'
+          '--remote-debugging-port=9223',
+          '--headless',
+          '--disable-gpu',
         ]
       }
     },
