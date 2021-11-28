@@ -1,4 +1,4 @@
-FROM node:14.7.0
+FROM node:lts
 
 RUN mkdir -p /usr/src/app
 
@@ -6,11 +6,7 @@ WORKDIR /usr/src/app
 
 COPY package.json .
 
-RUN npm install  npm sails nodemon --global
-
-RUN npm cache clean --force
-
-RUN npm install
+RUN npm install -g npm sails nodemon mocha && npm cache clean --force && npm install
 
 COPY . .
 
