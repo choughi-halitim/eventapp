@@ -1,4 +1,4 @@
-FROM node:lts
+FROM node:14.7
 
 RUN apt-get update && apt install chromium -y
 
