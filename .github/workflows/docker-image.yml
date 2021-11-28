@@ -8,6 +8,6 @@ jobs:
       - name: Build container
         run: docker-compose build
       - name: Test backend
-        run: docker-compose  run backevent npm test
+        run: docker-compose  run --rm backevent npm test
       - name: Test frontend
-        run: docker-compose  run frontevent npm run test:git
+        run: docker-compose  run --rm frontevent npm run test:git
