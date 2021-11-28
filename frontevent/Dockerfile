@@ -12,7 +12,7 @@ WORKDIR /usr/src/app
 
 COPY package.json .
 
-RUN npm install -g npm  @angular/cli@13
+RUN npm install npm  @angular/cli@13 --global
 
 RUN npm cache clean --force
 

@@ -6,7 +6,7 @@ WORKDIR /usr/src/app
 
 COPY package.json .
 
-RUN npm install -g npm sails nodemon
+RUN npm install  npm sails nodemon --global
 
 RUN npm cache clean --force
 
