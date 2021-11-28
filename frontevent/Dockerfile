@@ -8,11 +8,17 @@ RUN mkdir /usr/src/app
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+COPY package*.json /usr/src/app/
 
-RUN npm install -g npm  @angular/cli@13 && npm cache clean --force && npm install --force
+RUN npm install npm -g
 
-COPY . .
+RUN npm install @angular/cli@13.0.1 -g
+
+RUN npm cache clean --force
+
+RUN npm install --force
+
+COPY . /usr/src/app/
 
 VOLUME ["/usr/src/app"]
 
