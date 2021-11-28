@@ -1,6 +1,6 @@
 FROM node:lts
 
-RUN apt-get update && apt-get updgrade && apt install chromium -y
+RUN apt-get update && apt-get upgrade && apt install chromium -y
 
 ENV CHROME_BIN=/usr/bin/chromium
 
