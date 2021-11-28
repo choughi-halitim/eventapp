@@ -6,7 +6,7 @@ import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateTestingModule } from 'ngx-translate-testing';
 import { ErrorMessageService } from '@core/services/error-message.service';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import {FlexLayoutModule, FlexModule} from '@angular/flex-layout';
 import {FrontEventLayoutComponent} from '@shared/layout/front-event/front-event-layout.component';
 
 describe('AppComponent', () => {
@@ -19,7 +19,7 @@ describe('AppComponent', () => {
 
         AppRoutingModule,
 
-        FlexLayoutModule,
+        FlexModule,
 
         TranslateTestingModule.withTranslations({ en: require('src/assets/i18n/fr.json') }),
 
