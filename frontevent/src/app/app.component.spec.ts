@@ -6,8 +6,7 @@ import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateTestingModule } from 'ngx-translate-testing';
 import { ErrorMessageService } from '@core/services/error-message.service';
-import { FlexLayoutModule,   ɵMatchMedia as MatchMedia, ɵMockMatchMedia as MockMatchMedia } from '@angular/flex-layout';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import {FrontEventLayoutComponent} from '@shared/layout/front-event/front-event-layout.component';
 
 describe('AppComponent', () => {
@@ -33,8 +32,6 @@ describe('AppComponent', () => {
       declarations: [ AppComponent, FrontEventLayoutComponent ],
 
       providers: [
-
-        { provide: MatchMedia, useClass: MockMatchMedia },
 
         { provide: ErrorMessageService, useValue: new ErrorMessageService() },
 
