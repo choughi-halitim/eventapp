@@ -4,7 +4,7 @@ RUN mkdir -p /usr/src/app
 
 WORKDIR /usr/src/app
 
-COPY package*.json .
+COPY package*.json ./
 
 RUN npm install -g npm sails nodemon mocha && npm cache clean --force && npm install --force
 
