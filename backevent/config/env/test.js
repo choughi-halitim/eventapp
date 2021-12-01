@@ -84,9 +84,9 @@ module.exports = {
 
         dialect: 'postgres',
 
-        host   : '0.0.0.0',
+        host   : 'databasetest',
 
-        port   : 5433,
+        port   : 5432,
 
         logging: console.log
 

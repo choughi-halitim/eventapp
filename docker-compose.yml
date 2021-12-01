@@ -30,11 +30,12 @@ services:
       - 1337:1337
     volumes:
       - ./backevent:/usr/src/app/
+      - /usr/src/app/node_modules/
     command: sh -c "npm start"
     depends_on: [db, db-test]
     links:
       - db:database
-      - db-test:database-test
+      - db-test:databasetest
 
   frontevent:
     container_name: frontevent
@@ -44,6 +45,7 @@ services:
       - 4200:4200
     volumes:
       - ./frontevent:/usr/src/app/
+      - /usr/src/app/node_modules/
     command: sh -c "npm start"
     depends_on: [backevent]
     links:

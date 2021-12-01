@@ -1,14 +1,22 @@
-FROM node:latest
+FROM node:lts
 
 RUN mkdir -p /usr/src/app
 
 WORKDIR /usr/src/app
 
-COPY package.json .
+COPY package*.json /usr/src/app/
 
-RUN npm install -g npm sails nodemon && npm cache clean --force && npm install
+RUN npm install npm -g
 
-COPY . .
+RUN npm install sails@1.5.0 -g
+
+RUN npm install nodemon -g
+
+RUN npm cache clean --force
+
+RUN npm install --force
+
+COPY . /usr/src/app/
 
 VOLUME ["/usr/src/app"]
 

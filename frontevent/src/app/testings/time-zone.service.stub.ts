@@ -1,9 +1,7 @@
-import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import * as moment from 'moment';
 
-@Injectable()
-export class TimeZoneService {
+export class TimeZoneServiceStub {
 
   moment = moment;
 
@@ -33,9 +31,7 @@ export class TimeZoneService {
   // TODO: Start fonction for format future
   getDateOnTimeZone(date: string) {
 
-    let dateTimeZone = this.moment(date).tz(this.getTimeZoneBehaviorSubject().value);
-
-    return  this.moment(dateTimeZone).format('dddd DD MMMM yyyy  à HH:mm');
+    return  this.moment(date).tz(this.getTimeZoneBehaviorSubject().value).format('dddd DD MMMM yyyy  à HH:mm')
 
   }
 
