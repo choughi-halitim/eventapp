@@ -13,13 +13,13 @@ import { Subscription } from 'rxjs';
 })
 export class DisplayDateTimezoneFormatComponent implements OnInit, OnDestroy {
 
-  dateFormat: string = '';
+  dateFormat!: string;
 
-  timezone: string = '';
+  timezone!: string;
 
   timezoneSubscription!: Subscription;
 
-  @Input('date') date: string = '';
+  @Input() date!: string;
 
   constructor(private _timezoneService: TimeZoneService) {
 

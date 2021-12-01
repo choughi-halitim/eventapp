@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { catchError, finalize, of } from 'rxjs';
 import * as moment  from 'moment';
 import { TimeZoneService } from '@core/services/time-zone.service';
 import { AddKumojinEventDialogComponent } from '@shared/components/dialogs/add-kumojin-event/add-kumojin-event-dialog.component';
@@ -18,7 +17,7 @@ export class HeaderComponent {
 
   @Input() title!: string;
 
-  currentTimeZone: string = '';
+  currentTimeZone!: string;
 
   constructor(
 
@@ -36,27 +35,18 @@ export class HeaderComponent {
 
   addEvent() {
 
-    let dialogSub = this._dialog.open(AddKumojinEventDialogComponent, {
+    this._dialog.open(AddKumojinEventDialogComponent, {
 
       minWidth: '40%', minHeight: '60%', autoFocus: false, restoreFocus: false
-
-    }).afterClosed().pipe(
-
-      catchError((error) => of(error)),
-
-      finalize(() => { if (dialogSub) { dialogSub.unsubscribe(); }
-
-    })).subscribe((response) => {
-
-      if (response) {
-
-      }
 
     });
 
   }
 
   getUtc(): string {
+
     return moment.tz(this.currentTimeZone).format('Z')
+
   }
+
 }

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import * as moment from 'moment';
 import { TimeZoneService } from '@core/services/time-zone.service';
-import {IsInListOptionsValidator} from '@core/validators/is-in-list-options.validator';
+import { IsInListOptionsValidator } from '@core/validators/is-in-list-options.validator';
 
 @Component({
 

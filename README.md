@@ -1,15 +1,59 @@
 # KUMOJIN EVENT APP
 
-## GET STARTED
+## ARCHITECTURE
 
-## DEVELOPMENT
+```
+     _______            _________           ________________
+    | Front |----------| Backend |---------| BDD - Postgres |
+     -------            ---------           ----------------
+     
+``` 
 
-###RUN DEV CONTAINER DEV
+## GET STARTED LOCALHOST
 
-`docker-compose up -f docker-compose-dev.yml --build`
+Installer une base de donnée postgres > v10 sinon utilisé celle proposé via docker.
 
-## TEST
+La base de donnée est fourni par docker
 
-###RUN DEV CONTAINER TEST
+Dev local:
 
-`docker-compose up -f docker-compose-test.yml --build`
+Installer nodejs, et docker;
+
+Executer les commandes suivantes après que NodeJs soit installé:
+```
+npm install -g sails @angular/cli@13
+
+cd ./backend
+
+npm install
+
+cd ..
+
+cd ./frontend
+
+# a cause de la version flex/layout bien utilisé le tag --force
+
+npm install --force
+
+docker-compose up --build -d
+
+```
+
+## Lancer les test en local
+
+### BACKEND
+
+```
+cd ./backend
+
+npm test
+
+```
+### FRONTEND
+
+```
+cd ./frontend
+
+npm test
+
+```

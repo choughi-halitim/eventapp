@@ -1,14 +1,19 @@
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {errorMessage} from '@core/helpers/error-message.helper';
-import {IsInListOptionsValidator} from '@core/validators/is-in-list-options.validator';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { errorMessage } from '@core/helpers/error-message.helper';
+import { IsInListOptionsValidator } from '@core/validators/is-in-list-options.validator';
 import * as moment from 'moment';
-import {EndBeforeStart} from '@core/validators/end-before-start';
+import { EndBeforeStart } from '@core/validators/end-before-start';
 
 describe('#ErrorMessageHelperSpec',  () => {
 
+  let  formControlTest: FormControl;
+
+  beforeEach(() => {
+    formControlTest = new FormControl();
+  });
+
   it('should return error message required', () => {
 
-    let  formControlTest = new FormControl();
 
     formControlTest.setValidators([Validators.required]);
 
@@ -19,8 +24,6 @@ describe('#ErrorMessageHelperSpec',  () => {
   });
 
   it('should return error message notOptionValid', () => {
-
-    let  formControlTest = new FormControl();
 
     let testOptions = ['abc', 'def', 'ghi', 'ijk'];
 
@@ -33,8 +36,6 @@ describe('#ErrorMessageHelperSpec',  () => {
   });
 
   it('should return error message maxlength', () => {
-
-    let  formControlTest = new FormControl();
 
     let maxlength = 10;
 
